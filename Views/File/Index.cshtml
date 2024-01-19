@@ -5,8 +5,16 @@
 
 <div class="text-center">
     <h1 class="display-4">@ViewData["Title"]</h1>
-    @foreach (var file in files)
+    @if (files != null)
     {
-        <p>@file</p>
+        foreach (var file in files)
+        {
+            <p><a asp-route-fileName="@file" asp-controller="File" asp-action="Content">@file</a>
+            </p>
+        }
+    }
+    else
+    {
+        <p>No files found.</p>
     }
 </div>
