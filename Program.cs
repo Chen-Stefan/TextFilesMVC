@@ -9,7 +9,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -20,8 +19,17 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// Custom route for 'File/Content/{fileName}'
+app.MapControllerRoute(
+    name: "fileContent",
+    pattern: "File/Content/{fileName}",
+    defaults: new { controller = "File", action = "Content" }
+);
+
+// Default route
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
 
 app.Run();
